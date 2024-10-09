@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignIn } from "@clerk/nextjs";
 
 import "./globals.css";
 
@@ -27,7 +28,15 @@ export default function RootLayout({
     }}>
       <html lang="en">
         <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
-          {children}
+          <main>
+            <SignedOut>
+              <SignIn routing ="hash"/>
+            </SignedOut>
+            <SignedIn>
+              {children}
+            </SignedIn>
+          </main>
+          
         </body>
       </html>
     </ClerkProvider>
